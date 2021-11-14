@@ -8,6 +8,10 @@ class SignUpWidget extends StatefulWidget {
 }
 
 class _SignUpWidgetState extends State<SignUpWidget> {
+  TextEditingController _namController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +24,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             color: Colors.black12,
             margin: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _namController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
                 hintText: "First & Last name",
@@ -35,6 +40,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             color: Colors.black12,
             margin: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _emailController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email),
                 hintText: "Your username or email",
@@ -50,6 +56,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             color: Colors.black12,
             margin: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _passwordController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock),
                 hintText: "Password",
@@ -66,7 +73,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
             child: MaterialButton(
               color: Colors.blue,
               onPressed: () {
-                print("Log In Success");
+                _signUp(_namController.text, _emailController.text,
+                    _passwordController.text);
               },
               child: Text(
                 "Create an Account",
@@ -77,5 +85,11 @@ class _SignUpWidgetState extends State<SignUpWidget> {
         ],
       ),
     );
+  }
+
+  void _signUp(String name, String email, String password) {
+    if (name.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
+      print("Create Account Success");
+    }
   }
 }

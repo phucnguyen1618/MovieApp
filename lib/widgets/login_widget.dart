@@ -8,6 +8,10 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +24,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             color: Colors.black12,
             margin: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _emailController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.person),
                 hintText: "Your username or email",
@@ -35,6 +40,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             color: Colors.black12,
             margin: EdgeInsets.all(8.0),
             child: TextField(
+              controller: _passwordController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock),
                 hintText: "Password",
@@ -79,7 +85,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             child: MaterialButton(
               color: Colors.blue,
               onPressed: () {
-                print("Log In Success");
+                _logIn(_emailController.text, _passwordController.text);
               },
               child: Text(
                 "Log In",
@@ -90,5 +96,11 @@ class _LoginWidgetState extends State<LoginWidget> {
         ],
       ),
     );
+  }
+
+  void _logIn(String email, String password){
+    if(email.isNotEmpty && password.isNotEmpty){
+      print("Log In Success");
+    }
   }
 }
