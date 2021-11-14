@@ -8,6 +8,7 @@ class Review {
   String id = '';
   String updateAt = '';
   String url = '';
+  bool isShow = false;
 
   Review.fromJson(Map<String, dynamic> json){
     author = json['author'];

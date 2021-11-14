@@ -119,7 +119,7 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
                                           TextSpan(
                                             text: utils.Utils
                                                 .displayGenderForCast(snapshot
-                                                .data!.personDetail.gender),
+                                                    .data!.personDetail.gender),
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 14.0),
@@ -136,9 +136,11 @@ class _PersonDetailPageState extends State<PersonDetailPage> {
                                             color: utils.Utils.firstColor),
                                         children: [
                                           TextSpan(
-                                            text: snapshot
-                                                .data!.personDetail.birthday
-                                                .toString(),
+                                            text: utils.Utils
+                                                .formatDateTimeCreatedAt(
+                                                    snapshot.data!.personDetail
+                                                        .birthday
+                                                        .toString()),
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 14.0),

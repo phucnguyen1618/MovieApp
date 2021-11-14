@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/utils.dart' as color;
+import 'package:flutter_movie_app/widgets/movie_nowplaying_widget.dart';
+import 'package:flutter_movie_app/widgets/movie_upcoming_widget.dart';
 
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({Key? key}) : super(key: key);
@@ -13,25 +15,14 @@ class _UpcomingPageState extends State<UpcomingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: color.Utils.mainColor,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          title: const Text('UPCOMING'),
-        ),
         body: Container(
           constraints: const BoxConstraints.expand(),
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                    margin: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-
-                      ],
-                    ));
-              }),
+          child: Column(
+            children: const [
+              MovieUpcomingWidget(),
+              MovieNowPlayingWidget(),
+            ],
+          )
         ));
   }
 }

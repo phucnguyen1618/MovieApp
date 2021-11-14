@@ -3,7 +3,7 @@ import 'package:flutter_movie_app/blocs/home/movies_toprated_bloc.dart';
 import 'package:flutter_movie_app/data/api/movie_response.dart';
 import 'package:flutter_movie_app/models/movie.dart';
 import 'package:flutter_movie_app/pages/movie_detail_page.dart';
-import 'package:flutter_movie_app/utils.dart' as color;
+import 'package:flutter_movie_app/utils.dart' as utils;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class TopRatedWidget extends StatefulWidget {
@@ -110,7 +110,7 @@ class _TopRatedWidgetState extends State<TopRatedWidget> {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5.0),
                           child: Text(
-                            movies[index].releaseDate.toString(),
+                            utils.Utils.formatDateTimeCreatedAt(movies[index].releaseDate.toString()),
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 14.0),
                           ),
@@ -120,7 +120,7 @@ class _TopRatedWidgetState extends State<TopRatedWidget> {
                           child: Text(
                             'EVALUATE:',
                             style: TextStyle(
-                                color: color.Utils.secondColor, fontSize: 10.0),
+                                color: utils.Utils.secondColor, fontSize: 10.0),
                           ),
                         ),
                         Row(
@@ -179,7 +179,7 @@ class _TopRatedWidgetState extends State<TopRatedWidget> {
                             const Text(
                               'LANGUAGE:',
                               style: TextStyle(
-                                  color: color.Utils.secondColor,
+                                  color: utils.Utils.secondColor,
                                   fontSize: 10.0),
                             ),
                             const SizedBox(

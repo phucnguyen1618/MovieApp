@@ -1,12 +1,4 @@
-import 'package:flutter_movie_app/data/api/cast_response.dart';
-import 'package:flutter_movie_app/data/api/genres_response.dart';
-import 'package:flutter_movie_app/data/api/movie_credits_response.dart';
-import 'package:flutter_movie_app/data/api/movie_detail_response.dart';
-import 'package:flutter_movie_app/data/api/movie_request.dart';
-import 'package:flutter_movie_app/data/api/movie_response.dart';
-import 'package:flutter_movie_app/data/api/person_detail_response.dart';
-import 'package:flutter_movie_app/data/api/person_response.dart';
-import 'package:flutter_movie_app/data/api/reviews_response.dart';
+import 'package:flutter_movie_app/data/api/api.dart';
 
 class MovieRepository {
   final MovieRequest _movieRequest = MovieRequest();
@@ -45,4 +37,10 @@ class MovieRepository {
 
   Future<ReviewsResponse> getReviews(int id) =>
       _movieRequest.getUserReviewsForMovie(id);
+
+  Future<MovieResponse> getUpcoming() => _movieRequest.getUpcomingMovie();
+
+  Future<MovieResponse> getResults(String keyword) => _movieRequest.getMoviesResultForSearch(keyword);
+
+  Future<ImageResponse> getImages(int id) => _movieRequest.getImageForMovie(id);
 }

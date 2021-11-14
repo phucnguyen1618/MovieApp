@@ -3,7 +3,7 @@ import 'package:flutter_movie_app/blocs/detail/movie/movie_detail_bloc.dart';
 import 'package:flutter_movie_app/data/api/movie_detail_response.dart';
 import 'package:flutter_movie_app/models/genres.dart';
 import 'package:flutter_movie_app/pages/movies_genres_page.dart';
-import 'package:flutter_movie_app/utils.dart' as color;
+import 'package:flutter_movie_app/utils.dart' as utils;
 import 'package:flutter_movie_app/widgets/casts_widget.dart';
 import 'package:flutter_movie_app/widgets/movie_resources_widget.dart';
 import 'package:flutter_movie_app/widgets/similar_widget.dart';
@@ -35,7 +35,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color.Utils.mainColor,
+      backgroundColor: utils.Utils.mainColor,
       body: StreamBuilder<MovieDetailResponse>(
           stream: detailMovieBloc.movieDetailStream,
           builder: (context, snapshot) {
@@ -70,8 +70,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
                                     colors: [
-                                  color.Utils.mainColor.withOpacity(1.0),
-                                  color.Utils.mainColor.withOpacity(0.0)
+                                  utils.Utils.mainColor.withOpacity(1.0),
+                                  utils.Utils.mainColor.withOpacity(0.0)
                                 ],
                                     stops: const [
                                   0.0,
@@ -252,7 +252,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(2.0)),
-                                        color: color.Utils.firstColor),
+                                        color: utils.Utils.firstColor),
                                     child: const Icon(Icons.error_outline),
                                   ),
                             const SizedBox(
@@ -268,7 +268,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                     'FILM DETAILS',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: color.Utils.secondColor,
+                                        color: utils.Utils.secondColor,
                                         fontSize: 16.0),
                                   ),
                                   Container(
@@ -293,7 +293,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                             fontSize: 12.0),
                                       ),
                                       Text(
-                                        snapshot.data!.detail.releaseDate,
+                                        utils.Utils.formatDateTimeCreatedAt(
+                                            snapshot.data!.detail.releaseDate),
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 10.0,
@@ -311,9 +312,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                             fontSize: 12.0),
                                       ),
                                       Text(
-                                        snapshot.data!.detail.runtime
-                                                .toString() +
-                                            " min",
+                                        utils.Utils.formatTimeOfTheMovie(
+                                            snapshot.data!.detail.runtime),
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 10.0,
@@ -377,7 +377,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               snapshot.data!.detail.overview,
                               maxLines: 2,
                               style: const TextStyle(
-                                  color: color.Utils.secondColor,
+                                  color: utils.Utils.secondColor,
                                   fontSize: 12.0),
                             ),
                           ),
@@ -387,7 +387,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             child: Text(
                               snapshot.data!.detail.overview,
                               style: const TextStyle(
-                                  color: color.Utils.secondColor,
+                                  color: utils.Utils.secondColor,
                                   fontSize: 12.0),
                             ),
                           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/provider/search_movie_provider.dart';
 import 'package:flutter_movie_app/utils.dart' as color;
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -12,15 +14,17 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: color.Utils.mainColor,
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          _buildSearchBar(),
-
-        ],
+    return ChangeNotifierProvider(
+      create: (_) => SearchMovieProvider(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: color.Utils.mainColor,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            _buildSearchBar(),
+          ],
+        ),
       ),
     );
   }
@@ -40,18 +44,9 @@ class _SearchPageState extends State<SearchPage> {
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       onQueryChanged: (query) {
-
+        context.read<SearchMovieProvider>().searchMovie(query);
       },
-     transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: true,
-          child: CircularButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ),
-      ],
+      transition: CircularFloatingSearchBarTransition(),
       builder: (BuildContext context, Animation<double> transition) {
         return ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -59,14 +54,16 @@ class _SearchPageState extends State<SearchPage> {
                 color: Colors.white,
                 elevation: 4.0,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: Colors.accents.map((color) {
-                    return Container(height: 56, color: Colors.white);
-                  }).toList(),
+                  children: context
+                      .watch<SearchMovieProvider>()
+                      .getResponse
+                      .movieList
+                      .map((item) => Text(
+                            item.title,
+                          ))
+                      .toList(),
                 )));
       },
     );
   }
-
-
 }

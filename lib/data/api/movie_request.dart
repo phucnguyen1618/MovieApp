@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_movie_app/data/api/cast_response.dart';
 import 'package:flutter_movie_app/data/api/genres_response.dart';
+import 'package:flutter_movie_app/data/api/image_response.dart';
 import 'package:flutter_movie_app/data/api/movie_credits_response.dart';
 import 'package:flutter_movie_app/data/api/movie_response.dart';
 import 'package:flutter_movie_app/data/api/person_detail_response.dart';
@@ -20,6 +21,7 @@ class MovieRequest {
   final String _personUrl = '$_urlRequest/trending/person/week';
   final String _movieUrl = '$_urlRequest/movie/';
   final String _personDetailUrl = '$_urlRequest/person/';
+  final String _searchUrl = '$_urlRequest/search/movie';
 
   final Dio _dio = Dio();
 
@@ -178,6 +180,52 @@ class MovieRequest {
       return ReviewsResponse.fromJson(response.data);
     } catch (error) {
       return ReviewsResponse.withError(error.toString());
+    }
+  }
+
+  Future<ImageResponse> getImageForMovie(int movieId) async {
+    var params = {
+      'api_key' : _apiKey,
+      'language' : 'en-US',
+      'include_image_language' : 'en,null',
+    };
+
+    try{
+      Response response = await _dio.get(_movieUrl + '$movieId' + '/images', queryParameters: params);
+      return ImageResponse.fromJson(response.data);
+    }
+    catch(error){
+      return ImageResponse.withError(error.toString());
+    }
+  }
+
+  Future<MovieResponse> getUpcomingMovie() async {
+    var params = {
+      'api_key': _apiKey,
+      'language': 'en-US',
+    };
+
+    try {
+      Response response =
+          await _dio.get(_movieUrl + 'upcoming', queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error) {
+      return MovieResponse.withError(error.toString());
+    }
+  }
+
+  Future<MovieResponse> getMoviesResultForSearch(String keyword) async {
+    var params = {
+      'api_key': _apiKey,
+      'language': 'en-US',
+      'query': keyword,
+    };
+
+    try {
+      Response response = await _dio.get(_searchUrl, queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error) {
+      return MovieResponse.withError(error.toString());
     }
   }
 }
